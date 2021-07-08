@@ -1,0 +1,102 @@
+{% extends 'home/layout.html' %}
+{% load humanize %}
+
+ 
+{% block content %}
+  <div class="container-card">
+    {% for un_producto in listado_productos %}
+      {% if forloop.counter < 4 %}               
+         <!-- <div id="producto">  -->
+          
+              {% if forloop.counter == 1 %} 
+                  <div class="card">
+                    <h5>Ultimo Producto {{forloop.counter}}</h5>   
+                    <img src="{{ un_producto.imagen.url }}" alt="imagen del producto" width="150"  height="100"> <br>                 
+                    <div class="contenido-card">
+                      <p> {{un_producto.titulo | capfirst}}</p>  
+                      <p> ${{un_producto.precio | intcomma }}</p> 
+                        {% for group in request.user.groups.all %} 
+                            {% if group.name == "moderadores" %}                              
+                              <a href="{% url 'editar' un_producto.id %}">VER</a>
+                            {% else %}
+                              <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>
+                            {% endif %}  
+                        {% empty %}
+                          <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>
+                        {% endfor %} 
+
+                      
+                    </div>
+                  </div>
+              {% endif %}
+
+              {% if forloop.counter == 2 %}
+                  <div class="card">
+                    <h5>Ultimo Producto {{forloop.counter}}</h5>   
+                    <img src="{{ un_producto.imagen.url }}" alt="imagen del producto" width="150"  height="100"> <br>                 
+                    <div class="contenido-card">
+                      <p> {{un_producto.titulo | capfirst}}</p>                           
+                      <p> ${{un_producto.precio | intcomma }}</p> 
+                        {% for group in request.user.groups.all %} 
+                            {% if group.name == "moderadores" %}                              
+                              <a href="{% url 'editar' un_producto.id %}">VER</a>
+                            {% else %}
+                              <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>
+                            {% endif %}  
+                        {% empty %}
+                          <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>
+                        {% endfor %} 
+                    </div>
+                  </div>
+              {% endif %}
+
+              {% if forloop.counter == 3 %}
+                  <div class="card">
+                    <h5>Ultimo Producto {{forloop.counter}}</h5>   
+                    <img src="{{ un_producto.imagen.url }}" alt="imagen del producto" width="150"  height="100"> <br>                 
+                    <div class="contenido-card">
+                      <p> {{un_producto.titulo | capfirst}}</p>                           
+                      <p> ${{un_producto.precio | intcomma }}</p> 
+                        {% for group in request.user.groups.all %} 
+                            {% if group.name == "moderadores" %}                              
+                              <a href="{% url 'editar' un_producto.id %}">VER</a>
+                            {% else %}
+                              <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>
+                            {% endif %}  
+                        {% empty %}
+                          <a href="{% url 'detalle_producto' un_producto.id %}">VER</a>                            
+                        {% endfor %} 
+                    </div>
+                  </div>                     
+              {% endif %}
+          
+      {% endif %}
+    {% empty %}
+        <li>No hay productos ingresados.</li>
+    {% endfor %}
+  </div> 
+    <div class="mas_productos">      
+        <p>MAS PRODUCTOS</p>
+        {% for un_producto in listado_productos %}
+          {% if forloop.counter > 3 %}
+              <div class="listado"  style="text-align:left;">
+                <ul class="lis_producto" style="margin:0px;">
+                  <li>                    
+                        {% for group in request.user.groups.all %} 
+                            {% if group.name == "moderadores" %}                                                            
+                              <a style="margin-left:15px" href="{% url 'editar' un_producto.id %}">- {{un_producto.titulo | capfirst}} {{forloop.counter}}........</a> 
+                            {% else %}                              
+                              <a style="margin-left:15px" href="{% url 'detalle_producto' un_producto.id %}">- {{un_producto.titulo | capfirst}} {{forloop.counter}}........</a> 
+                            {% endif %}  
+                        {% empty %}
+                          <a style="margin-left:15px" href="{% url 'detalle_producto' un_producto.id %}">- {{un_producto.titulo | capfirst}} {{forloop.counter}}........</a>                            
+                        {% endfor %} 
+                  </li>
+                </ul>
+              </div>
+          {% endif %}
+        {% empty %}
+            <li>No hay productos ingresados.</li>
+        {% endfor %}   
+    </div>
+{% endblock %}

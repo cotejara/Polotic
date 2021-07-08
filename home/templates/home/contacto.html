@@ -1,0 +1,21 @@
+{% extends 'home/layout.html' %}
+ 
+{% block content %}
+
+<div class="container text-center">
+<h5>CONTACTO</h5>
+</div>
+
+<div class="container">
+
+  <form method="post" action="{% url 'contacto' %}" >
+    {% csrf_token %}
+    <p>Asunto: <input type="text" name="asunto"></p>
+    <p>Email: <input type="text" name="email"></p>
+    <p>Message: <textarea name="mensaje" rows="8" cols="55"></textarea></p>
+    <input style="font-size: 26px" type="submit" value="Enviar">
+  </form>
+
+</div>
+
+{% endblock %}

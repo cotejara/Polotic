@@ -1,0 +1,38 @@
+{% extends "registration/layout.html" %} 
+
+{% block content %}
+
+{% if form.errors %}
+    <p>El usuario y la clave no coinciden, por favor intente nuevamente.</p>
+{% endif %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent" style="margin-left: 10rem;">
+
+  <h3 style="text-align:center">Acceder a la WEB</h3>
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <p>Username: {{ form.username }} </p>
+    <p>Password: {{ form.password }} </p>
+
+    <div>
+      <br>
+      <input type="submit" class="btn btn-outline-success btn-sm" value="Login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+      
+      {% if not user.is_authenticated %}  
+      <a class="btn btn-outline-success btn-sm" href="{% url 'usuarios:registrarse' %}" role="button">REGISTRARSE</a>
+      {% endif %}
+    </div>
+  </form>
+
+  {# Asume que configuras la vista password_reset en tu URLconf #}
+
+  {% comment %} <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p> {% endcomment %}
+
+  {% endblock %}
+
+  </div>
+</div>

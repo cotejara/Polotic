@@ -1,0 +1,25 @@
+{% extends 'home/layout.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container text-center">
+    <h2>{{ producto.titulo }}</h2>
+</div>
+
+  
+  <img class ="img_detalle"  src="{{ producto.imagen.url }}">
+
+  <div class="detalle_img_producto">
+
+    <p class="categoria">CATEGORIA: {{ producto.categoria }}</p>
+    <div class="text_descripcion">
+      <p>Descripcion {{ producto.description }}</p>    
+      <p>Precio {{ producto.precio | intcomma }}</p>                                            
+      <a  href="" role="button">AGREGAR A CARRITO</a>
+    </div>      
+  </div>
+
+{% endblock %}

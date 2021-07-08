@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>JAGUARETE KAA</title>
+     
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <!-- Styles -->
+        <link rel="stylesheet" href="{% static 'estilos.css' %}"> 
+        <!-- Bootstrap -->
+        <link href="{% static 'home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'home/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet"> 
+    
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+        <style>
+            .logo {
+                float:left;
+                width:200px;
+                margin:0;
+
+            }
+
+            .sect{     
+                margin-top:10px;        
+                margin-right:10px;  
+                float:right; 
+                padding:0;
+            }
+       
+
+            .footer{
+                width:100%;
+                border:1px solid;
+                margin:0px;
+                background-color: #e3f2fd;
+                bottom:0;
+                position: fixed;
+                Text-align: center;
+                border-radius: 10px;
+                left: 0;
+            }
+
+            .text_footer {
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+                <div class="sect"> 
+                    {% if user.is_authenticated %}                                    
+                        <a role="button" class="btn btn-outline-success btn-sm" href="{% url 'logout'%}?next={% url 'index' %}">SALIR</a>                                                                
+                    {% else %}                            
+                        <a role="button" class="btn btn-outline-success btn-sm" href="{% url 'login'%}?next={% url 'index' %}">LOGIN</a>   
+                        <a class="btn btn-outline-success btn-sm" href="{% url 'usuarios:registrarse' %}" role="button">REGISTRO</a> 
+                        <a class="btn btn-outline-success btn-sm" href="" role="button">CARRITO</a>
+                    {% endif %}                        
+                    {% for group in request.user.groups.all %} 
+                        {% if group.name != "moderadores" %}                              
+                            <a class="btn btn-outline-success btn-sm" href="" role="button">CARRITO</a>  
+                        {% endif %}  
+                    {% endfor %}                     
+                </div> 
+                {% if user.is_authenticated %}                                                               
+                    <p> Bienvenido: {{ user.get_username }} </p>  
+                {% else %}  
+                    <p>. </p>               
+                {% endif %} 
+            <br>
+            
+            <div class="barra"> 
+                <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd; border: solid 0.5px; padding:0px; border-radius: 6px; ">
+                        <a class="navbar-brand" href="#" >
+                            <img src="/media/imagenes/logo.png" alt="" width="80" height="70" class="d-inline-block align-text-top">
+                        </a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown" >
+                                <a type="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                CATEGORIAS                                                    
+                                </a>                        
+                                <div class="dropdown-menu" style="background-color: #e3f2fd;">
+                                    {% for categoria in lista_categorias %}
+                                        <a class="dropdown-item" href="{% url 'filtro_secciones' categoria.id %}">{{ categoria }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'acerca' %}">ACERCA DE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contacto' %}">CONTACTO</a>
+                        </li>   
+                        {% comment %} {% if request.user.groups.filter(name__in=['moderadores']) %}  {% endcomment %}  
+                        {% for group in request.user.groups.all %} 
+                            {% if group.name == "moderadores" %}                              
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'agregar' %}">NUEVO PRODUCTO</a>
+                                </li>   
+                            {% endif %}  
+                        {% endfor %}       
+                    <ul>
+                    <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="{% url 'busca_producto' %}">Search</button>
+                    </form>
+                </div>
+                </nav>
+            </header>
+        </div>
+
+            {% block content %}
+            {% endblock %}
+
+
+        <!-- Footer -->
+        <div class="footer" float="left">
+        <Footer>
+            <div class="footer">                    
+                    <p class="text_footer">Copyright &copy;JAGUARETE KAA S.A. | </p>
+                    <p class="text_footer">José Jara R..-</p>
+            </div>
+	    </Footer>
+        </div>
+    <!-- Bootstrap -->
+
+    <script src="{% static '/home/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    </body>
+</html>

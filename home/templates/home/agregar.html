@@ -1,0 +1,26 @@
+{% extends 'home/layout.html' %}
+ 
+{% block content %}
+
+<div class="container">
+  <br>
+  <form method="post" action="{% url 'agregar' %}" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {% for campo in form %}
+      <p>
+        {{ campo.label_tag }} {{ campo }}<br>
+        
+        {% if campo.help_text %}
+          <small style="color: grey">{{ campo.help_text }}</small>
+        {% endif %}
+        {% for error in campo.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Confirmar Registro</button>
+  </form>
+  <br>
+</div>
+
+{% endblock %}

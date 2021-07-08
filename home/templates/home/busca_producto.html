@@ -1,0 +1,22 @@
+{% extends 'home/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container text-center">
+    <h2>Listado de Todos los Productos Buscados</h2>
+</div>
+    
+    <ul>
+        {% for un_producto in listado_productos %}
+            <li>              
+                <a href="{% url 'detalle_producto' un_producto.id %}">Ver #{{un_producto.id}}</a> /                
+                --- {{un_producto.titulo}} / {{un_producto.precio}}
+            </li>
+        {% empty %}
+            <li>No hay producto buscado.</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

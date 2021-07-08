@@ -1,0 +1,23 @@
+{% extends 'home/layout.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+    <div class="container text-center">
+        <h2>Listado de Productos</h2>
+    </div>    
+    <ul>
+        {% for un_producto in listado_productos %}
+            <li>              
+                <img src="{{ un_producto.imagen.url }}" alt="imagen del producto" width="150">
+                <a href="{% url 'detalle_producto' un_producto.id %}">Ver #{{un_producto.id}}</a> /                
+                --- {{un_producto.titulo | capfirst}} / $ {{un_producto.precio | intcomma}}
+            </li>
+        {% empty %}
+            <li>No hay un_producto en ésta Categoria.</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'home/layout.html' %}
+ 
+{% block content %}
+
+<div class="container">
+  <br>
+  {% comment %} action="{% url 'home/editar' id_producto %}"   enctype="multipart/form-data" {% endcomment %}
+  <form method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for campo in form %}
+      <p>
+        {{ campo.label_tag }} {{ campo }}<br>
+        
+        {% if campo.help_text %}
+          <small style="color: grey">{{ campo.help_text }}</small>
+        {% endif %}
+        {% for error in campo.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {{ instance.id }}
+      </p>
+    {% endfor %}    
+    <button type="submit" class="btn btn-outline-success btn-sm">Graba Cambios</button>  
+    <a class="btn btn-danger" href="">Eliminar</a> 
+  </form>
+     
+  <br>
+</div>
+
+{% endblock %}
