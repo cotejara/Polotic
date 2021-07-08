@@ -69,7 +69,6 @@ def agregar(request):
         form = ProductoForm(request.POST, request.FILES)
         print('antes del is form.is.valid')
         if form.is_valid():
-            print('form valido')
             form.save() 
             context = {"lista_categorias": Categoria.objects.all(), "listado_productos": Producto.objects.order_by('-id')}
             return redirect("index")
