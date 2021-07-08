@@ -14,7 +14,6 @@ from django.contrib.auth.models import User, Group
 def home(request):
     #tareas = Tarea.objects.all() #para obtener todoslos registros de la tabla
     context = {"lista_categorias": Categoria.objects.all(), "listado_productos": Producto.objects.order_by('-id')}
-    print('---------------')
     users_in_group = Group.objects.get(name="comunes").user_set.all()
     print(users_in_group )
     return render(request,'home/index.html', context) 
