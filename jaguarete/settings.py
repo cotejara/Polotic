@@ -147,7 +147,7 @@ LOGOUT_REDIRECT_URL = '/index'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' #'smtp.googlemail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'oracle@coexca.cl' #'josejararojas@gmail.com'
-EMAIL_HOST_PASSWORD = 'coexca2017' #'13012014Ma'
+EMAIL_HOST_USER = 'josejararojas@gmail.com'
+EMAIL_HOST_PASSWORD = 'SADASD#$dsfdds'
 EMAIL_USE_TLS = True
 
